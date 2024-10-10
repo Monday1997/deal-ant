@@ -1,0 +1,79 @@
+{
+    "editor.tabSize": 2, // tab两个空格
+    "files.trimTrailingWhitespace": true, // 自动去除多余空格
+    "eslint.alwaysShowStatus": true, // 显示异常信息
+    "editor.formatOnSave": true, // 保存时自动格式化
+    "editor.formatOnPaste": false, // 粘贴时自动格式化
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[markdown]": {
+      "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[yml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[less]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vetur.validation.template": false, // 关闭vetur的模版校验
+    "eslint.validate": ["javascript", "javascriptreact", "vue", "html"], // eslint校验的范围
+    "html.validate.styles": false, // vscode配置，关闭style校验防止在查看小程序**ml文件时出错
+    "files.associations": {
+      "*.axml": "html",
+      "*.wxml": "html",
+      "*.ttml": "html",
+      "*.acss": "css",
+      "*.wxss": "css",
+      "*.ttss": "css"
+    },
+    "stylelint.validate": ["vue"],
+    "stylelint.enable": true,
+    "cSpell.words": [
+      "alipay",
+      "anticon",
+      "btns",
+      "cascader",
+      "Changehanlder",
+      "composables",
+      "hoverable",
+      "Imei",
+      "maxlength",
+      "navs",
+      "popconfirm",
+      "qualitation",
+      "vuex"
+    ]
+  }

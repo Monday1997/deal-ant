@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+      "editorconfig.editorconfig",
+      "rvest.vs-code-prettier-eslint",
+      "dbaeumer.vscode-eslint",
+      "stylelint.vscode-stylelint",
+      "lllllllqw.jsdoc",
+      "yzhang.markdown-all-in-one",
+      "davidanson.vscode-markdownlint"
+    ]
+  }

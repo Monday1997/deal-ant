@@ -1,0 +1,4 @@
+{
+  "root": true,
+  "extends": ["@deal-ant/eslint-config"]
+}
