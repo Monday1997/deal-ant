@@ -4,7 +4,7 @@
     "incremental": false,
     "isolatedModules": true,
     "noUncheckedIndexedAccess": true,
-    "module": "CommonJS", //打包模块类型ESNext
+    "module": "ESNext", //打包模块类型ESNext
     "noImplicitAny": false, //支持类型不标注可以默认any
     "removeComments": true, // 删除注释
     "moduleResolution": "node", //按照node模块来解析
@@ -18,7 +18,7 @@
       "ESNext",
       "DOM"
     ],
-    "types": ["unplugin-vue-macros/macros-global"],
+    // "types": ["unplugin-vue-macros/macros-global"],
     "allowSyntheticDefaultImports": true, //允许没有导出的模块中导入
     "experimentalDecorators": true, // 装饰器语法
     "forceConsistentCasingInFileNames": true, // 强制区分大小写
@@ -29,5 +29,6 @@
     "noLib": false, // 不处理类库
     "paths": {}
   },
+  "ts-node": { "esm": true },
   "exclude": ["node_modules", "**/_tests_", "dist/**"] // 排除掉那些类库
 }

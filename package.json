@@ -7,11 +7,22 @@
   "author": "xuj",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm -C play dev",
+    "build": "gulp -f buildings/script/gulpfile.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@deal-ant/components": "workspace:^",
+    "@deal-ant/utils": "workspace:^",
+    "gulp": "4.0.2",
+    "rollup": "4.13.0"
+  },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "ant-design-vue": "4.2.3",
     "eslint": "8.18.0",
-    "eslint-define-config": "1.5.1"
+    "eslint-define-config": "1.5.1",
+    "sucrase": "^3.35.0",
+    "vue": "3.4.38"
   }
 }
