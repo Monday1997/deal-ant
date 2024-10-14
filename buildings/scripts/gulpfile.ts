@@ -1,12 +1,8 @@
-import { series } from 'gulp'
-import { rollup } from 'rollup'
-export default series(testRoolup)
-async function testRoolup() {
-  await rollup({
-    input: './a.js',
-    output: {
-      file: 'bundle.js',
-      format: 'cjs',
-    },
-  })
-}
+import { parallel, series } from 'gulp'
+import { run, withTaskName } from './build-utils'
+
+import buildModules from './modules'
+export default series(
+  withTaskName('cleanDist', async () => run('pnpm run clean')),
+  parallel(buildModules)
+)

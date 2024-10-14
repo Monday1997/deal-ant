@@ -49,6 +49,10 @@ compilerOptions.path作用： 别名
 
 解决：重启vscode就解决了 妈的！！！
 
+### gulp引入错误提示
+import { series } from 'gulp'明明安装了gulp ts还提示找不到模块“gulp”或其相应的类型声明。
+解决安装 gulp-typescript（还是不行就把node_modules删了再装一次）
+
 ## 导入component和play
 
 分析后
@@ -108,4 +112,79 @@ const props = defineProps(buttonProps)
 
 设置好with-install.ts
 
+## 一些依赖说明
+- gulp-typescript 用于在构建流程中编译 TypeScript 文件
+- @types/gulp：解决gulp引入错误提示
+
+## 工具
+### withTaskName
+本质：为fn添加添加displayName属性
+export const withTaskName = <T extends TaskFunction>(name: string, fn: T) => Object.assign(fn, { displayName: name })
+### run
+调用子进程的spawn
+```js
+import { spawn } from 'child_process'
+import { rootDir } from './path'
+export const run = async (command: string) => {
+  return new Promise<void>((resolve) => {
+    // 将命令分割 如rm -rf
+    const [cmd, ...args] = command.split(' ')
+    const app = spawn(cmd!, args, {
+      cwd: rootDir,
+      stdio: 'inherit',// 直接使用父进程的输入输出流
+      shell: process.platform === 'win32', // 默认情况下 linux才支持 rm -rf  windows安装git bash
+    })
+    app.on('close', resolve)
+  })
+}
+```
+### excludeFIles
+```js
+// 本质就是利用some筛选包含的路径再取反
+export const excludeFiles = (files: string[]) => {
+  const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
+  return files.filter((path) => {
+    const position = path.startsWith(rootDir) ? rootDir.length : 0
+    return !excludes.some((exclude) => path.includes(exclude, position))
+  })
+}
+```
+## 打包
+### 清除命令
+实质运行："clean": "rimraf dist/deal-ant"
+代码中 withTaskName('cleanDist',async()=>run('pnpm run clean'))
+### 打包除ui页外packages下所有js,ts,vue
+
+```js
+// 获取所有packages资源
+ import glob from 'fast-glob'
+ // 除去定义中的资源 ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
+ const input = excludeFiles(await glob('**/*.{js,ts,vue}', {
+      cwd: pkgRoot,
+      absolute: true,
+      onlyFiles: true,
+    }))
+  // 打包为一个bundle
+const bundle = await rollup({
+    input,
+    plugins: [
+      vue({ isProduction: true }),
+      nodeResolve({
+        extensions: ['.mjs', '.js', '.json', '.ts'], // 修正@文件引入
+      }),
+      esbuild({
+        sourceMap: true,
+        target: 'es2018',
+      }),
+      commonjs(),
+    ],
+    // 将文件中一些引入依赖排除在外 如vue开头 @开头等
+    // full用于判断是否处理的是deal-ant-ui
+    external: await generateExternal({ full: false }),
+    treeshake: false,
+  })
+```
+
 play中正常执行vite就好
+
+bundle.write中preserveModulesRoot是维持原始文件夹结构的
