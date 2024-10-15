@@ -34,6 +34,8 @@ extensions.json中的唯一标识符填写
 compilerOptions.path作用： 别名
 
 - 比如设置 `"@components": ["src/components"]`，之后在代码中就可以使用 `import Button from '@components/Button';` 而不是 `import Button from 'src/components/Button';`。
+#### package.json中的换行问题
+[参考一下这里](https://blog.csdn.net/betterAndBetter_/article/details/139451386)
 
 ### gulpfile
 
@@ -183,6 +185,39 @@ const bundle = await rollup({
     external: await generateExternal({ full: false }),
     treeshake: false,
   })
+```
+### 整体打包
+
+
+```js
+const bundle = await rollup({
+    input: path.resolve(dealAntUiDir, 'index.ts'),
+    plugins,
+    external: await generateExternal({ full: true }), // 排除package.json中的依赖
+  })
+  // 打包为cjs和esm版本
+  await writeBundles(bundle, [
+    {
+      format: 'cjs',
+      file: path.resolve(dealAntDistDir, 'index.full.js'),
+      exports: 'named',
+      name: 'deal-ant',
+      sourcemap: false,
+    },
+    {
+      format: 'esm',
+      file: path.resolve(dealAntDistDir, 'index.full.mjs'),
+      sourcemap: false,
+    },
+  ])
+```
+复制json和readme文件到对应的dist目录下
+```js
+function copyFiles() {
+  const copyPackage = () => src(dealAntUiPackage).pipe(dest(dealAntDistDir))
+  const copyReadme = () => src(`${dealAntUiDir}/README.md`).pipe(dest(dealAntDistDir))
+  return Promise.all([copyPackage(), copyReadme()])
+}
 ```
 
 play中正常执行vite就好

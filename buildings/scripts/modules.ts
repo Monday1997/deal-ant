@@ -26,6 +26,9 @@ export default async function buildModules() {
       esbuild({
         sourceMap: true,
         target: 'es2018',
+        loaders: {
+          '.vue': 'ts',
+        },
       }),
       commonjs(),
     ],

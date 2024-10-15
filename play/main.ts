@@ -1,8 +1,10 @@
-import { createApp } from 'vue';
-import App from './app.vue';
-import { daButton } from '@deal-ant/components';
-console.log(daButton)
+import { createApp } from 'vue'
+import App from './app.vue'
+// import { daButton } from '@deal-ant/components';
+import dealAnt from '../dist/deal-ant'
 const app = createApp(App)
-app.use(daButton)
+console.log(dealAnt)
+
+app.use(dealAnt)
 
 app.mount('#app')
