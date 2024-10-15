@@ -16,6 +16,7 @@
     "@deal-ant/utils": "workspace:^"
   },
   "devDependencies": {
+    "@deal-ant/theme-chalk": "workspace:^",
     "@vitejs/plugin-vue": "^2.3.3",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "ant-design-vue": "4.2.3",

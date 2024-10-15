@@ -34,7 +34,9 @@ extensions.json中的唯一标识符填写
 compilerOptions.path作用： 别名
 
 - 比如设置 `"@components": ["src/components"]`，之后在代码中就可以使用 `import Button from '@components/Button';` 而不是 `import Button from 'src/components/Button';`。
+
 #### package.json中的换行问题
+
 [参考一下这里](https://blog.csdn.net/betterAndBetter_/article/details/139451386)
 
 ### gulpfile
@@ -52,6 +54,7 @@ compilerOptions.path作用： 别名
 解决：重启vscode就解决了 妈的！！！
 
 ### gulp引入错误提示
+
 import { series } from 'gulp'明明安装了gulp ts还提示找不到模块“gulp”或其相应的类型声明。
 解决安装 gulp-typescript（还是不行就把node_modules删了再装一次）
 
@@ -115,15 +118,21 @@ const props = defineProps(buttonProps)
 设置好with-install.ts
 
 ## 一些依赖说明
+
 - gulp-typescript 用于在构建流程中编译 TypeScript 文件
 - @types/gulp：解决gulp引入错误提示
 
 ## 工具
+
 ### withTaskName
+
 本质：为fn添加添加displayName属性
 export const withTaskName = <T extends TaskFunction>(name: string, fn: T) => Object.assign(fn, { displayName: name })
+
 ### run
+
 调用子进程的spawn
+
 ```js
 import { spawn } from 'child_process'
 import { rootDir } from './path'
@@ -140,21 +149,29 @@ export const run = async (command: string) => {
   })
 }
 ```
+
 ### excludeFIles
+
 ```js
 // 本质就是利用some筛选包含的路径再取反
 export const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
   return files.filter((path) => {
-    const position = path.startsWith(rootDir) ? rootDir.length : 0
+    // 解决斜杠反斜杠问题
+    let rootDirData =process.platform === 'win32'?rootDir.replace(/\\/g, '\/'): rootDir
+    const position = path.startsWith(rootDirData) ? rootDir.length : 0
     return !excludes.some((exclude) => path.includes(exclude, position))
   })
 }
 ```
+
 ## 打包
+
 ### 清除命令
+
 实质运行："clean": "rimraf dist/deal-ant"
 代码中 withTaskName('cleanDist',async()=>run('pnpm run clean'))
+
 ### 打包除ui页外packages下所有js,ts,vue
 
 ```js
@@ -186,8 +203,8 @@ const bundle = await rollup({
     treeshake: false,
   })
 ```
-### 整体打包
 
+### 整体打包
 
 ```js
 const bundle = await rollup({
@@ -211,7 +228,9 @@ const bundle = await rollup({
     },
   ])
 ```
+
 复制json和readme文件到对应的dist目录下
+
 ```js
 function copyFiles() {
   const copyPackage = () => src(dealAntUiPackage).pipe(dest(dealAntDistDir))

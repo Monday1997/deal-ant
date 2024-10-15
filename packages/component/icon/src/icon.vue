@@ -1,5 +1,5 @@
 <template>
-  <div :style="comStyle" :class="`deal-ant-${type}`">
+  <div :style="comStyle" :class="`deal-ant-icon-${type}`">
     <slot />
   </div>
 </template>

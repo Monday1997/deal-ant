@@ -1,7 +1,7 @@
 <template>
   <div>
     <daButton type="dashed" />
-    <DIcon />
+    <DIcon type="shengdanbingqilin" :color="'red'" :size="30"/>
   </div>
 </template>
 
