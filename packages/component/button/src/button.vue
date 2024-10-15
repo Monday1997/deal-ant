@@ -1,5 +1,6 @@
 <template>
   <Button :type="props.type || 'primary'">64</Button>
+  <div class="red-name">name</div>
 </template>
 
 <script setup lang="ts">

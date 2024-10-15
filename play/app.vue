@@ -1,6 +1,7 @@
 <template>
   <div>
     <daButton type="dashed" />
+    <DIcon />
   </div>
 </template>
 
