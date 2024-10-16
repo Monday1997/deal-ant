@@ -1,12 +1,13 @@
 import path from 'path'
 import { Transform } from 'stream'
-import { dest, series, src } from 'gulp'
+import { dest, parallel, series, src } from 'gulp'
 import gulpSass from 'gulp-sass'
 import dartSass from 'sass'
 import autoprefixer from 'gulp-autoprefixer'
 import postcss from 'postcss'
 import cssnano from 'cssnano'
-const distThemeChalk = '../../dist/deal-ant/themeChalk'
+import type Vinly from 'vinyl'
+const distThemeChalk = '../../dist/deal-ant/theme-chalk'
 /**
  * using `postcss` and `cssnano` to compress CSS
  * @returns
@@ -47,7 +48,7 @@ function compressWithCssnano() {
 }
 function comScss() {
   const sass = gulpSass(dartSass)
-  return src('./src/index.scss')
+  return src('./src/*.scss')
     .pipe(sass.sync())
     .pipe(autoprefixer({ cascade: false }))
     .on('data', (data) => {
@@ -58,12 +59,17 @@ function comScss() {
       }
     })
     .pipe(compressWithCssnano())
-    .pipe(dest('./dist/css'))
+    .pipe(dest('./dist'))
 }
 function copyAll() {
   return src('./dist/**').pipe(dest(distThemeChalk))
 }
 function copyfonts() {
-  return src('./src/fonts/**', { encoding: false }).pipe(dest(path.resolve(themeChalk, 'fonts')))
+  return src('./src/fonts/**', { encoding: false }).pipe(
+    dest(path.resolve(distThemeChalk, 'fonts'))
+  )
 }
-export default series(copyfonts, comScss, copyAll)
+function copyOriginTheme() {
+  return src('./src/**').pipe(dest(path.resolve(distThemeChalk, 'src')))
+}
+export default parallel(copyOriginTheme, series(copyfonts, comScss, copyAll))

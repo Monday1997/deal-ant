@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "pnpm -C play dev",
     "build": "gulp -f buildings/scripts/gulpfile.ts",
-    "clean": "rimraf dist/deal-ant"
+    "build:theme": "gulp -f packages/theme-chalk/gulpfile.ts",
+    "clean": "rimraf dist/deal-ant",
+    "link:dealant": "pnpm link deal-ant"
   },
   "dependencies": {
     "@deal-ant/components": "workspace:^",

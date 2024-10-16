@@ -1,5 +1,5 @@
 import path from 'path'
-import { dealAntDistDir } from './build-utils'
+import { dealAntDistDir } from './path'
 export const modules = ['esm', 'cjs'] as const
 export type Module = (typeof modules)[number]
 export const buildConfig = {

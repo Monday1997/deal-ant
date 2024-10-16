@@ -4,7 +4,7 @@ import { dealAntUiPackage, rootDir } from './index'
 export const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
   return files.filter((path) => {
-    let rootDirData =process.platform === 'win32'?rootDir.replace(/\\/g, '\/'): rootDir
+    const rootDirData = process.platform === 'win32' ? rootDir.replace(/\\/g, '/') : rootDir
     const position = path.startsWith(rootDirData) ? rootDir.length : 0
     return !excludes.some((exclude) => path.includes(exclude, position))
   })

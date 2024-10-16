@@ -238,6 +238,11 @@ function copyFiles() {
   return Promise.all([copyPackage(), copyReadme()])
 }
 ```
+### theme-chalk打包
+- font转移至dist下
+- 转化为css并压缩
+- 将dist转到根目录dist下
+
 
 play中正常执行vite就好
 

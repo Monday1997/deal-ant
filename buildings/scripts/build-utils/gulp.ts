@@ -1,6 +1,6 @@
 import type { TaskFunction } from 'gulp'
 import { spawn } from 'child_process'
-import { rootDir } from './path'
+import { rootDir, buildConfig, PKG } from './index'
 export const withTaskName = <T extends TaskFunction>(name: string, fn: T) =>
   Object.assign(fn, { displayName: name })
 
@@ -15,4 +15,14 @@ export const run = async (command: string) => {
     })
     app.on('close', resolve)
   })
+}
+
+export const pathRewriter = (module) => {
+  const config = buildConfig[module]
+
+  return (id: string) => {
+    id = id.replaceAll(`${PKG.PKG_PREFIX}/theme-chalk`, `${PKG.PKG_NAME}/theme-chalk`)
+    id = id.replaceAll(`${PKG.PKG_PREFIX}/`, `${config.bundle.path}/`)
+    return id
+  }
 }

@@ -4,8 +4,14 @@ import glob from 'fast-glob'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import esbuild from 'rollup-plugin-esbuild'
 import commonjs from '@rollup/plugin-commonjs'
-import { dealAntUiDir, excludeFiles, generateExternal, pkgRoot, writeBundles } from './build-utils'
-import { buildConfig } from './build-config'
+import {
+  buildConfig,
+  dealAntUiDir,
+  excludeFiles,
+  generateExternal,
+  pkgRoot,
+  writeBundles,
+} from './build-utils'
 import type { ModuleFormat, OutputOptions } from 'rollup'
 export default async function buildModules() {
   // packages下所有ts,js,vue文件
