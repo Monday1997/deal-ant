@@ -1,5 +1,5 @@
 {
-  "name": "文档",
+  "name": "easy-com",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -12,7 +12,14 @@
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
   },
+  "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
+    "@vueuse/core": "^11.1.0",
+    "ant-design-vue": "^4.2.5"
+  },
   "devDependencies": {
+    "@types/markdown-it": "14.1.1",
+    "markdown-it-container": "3.0.0",
     "vitepress": "^1.4.1"
   }
 }

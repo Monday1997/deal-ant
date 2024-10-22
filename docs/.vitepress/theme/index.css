@@ -1,0 +1,12 @@
+.flex-wrap {
+  display: flex;
+}
+.flex-x-center {
+  justify-content: center;
+}
+.flex-y-center {
+  align-items: center;
+}
+.cursor {
+  cursor: pointer;
+}

@@ -123,7 +123,7 @@ const props = defineProps(buttonProps)
 - @types/gulp：解决gulp引入错误提示
 - autoprefixer添加一些兼容前缀如 webkit-
 -   cssnano   用于压缩和优化 CSS ,可以删除不必要的空格、注释，合并规则等，以减小 CSS 文件的大小。 项目中的配置避免了对颜色和字体进行转化
-- postcss用于处理css  允许你使用各种插件来转换、优化和分析 CSS 代码 
+- postcss用于处理css  允许你使用各种插件来转换、优化和分析 CSS 代码
 - .
 
 ## 工具
@@ -162,7 +162,7 @@ export const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
   return files.filter((path) => {
     // 解决斜杠反斜杠问题
-    let rootDirData =process.platform === 'win32'?rootDir.replace(/\\/g, '\/'): rootDir
+    const rootDirData =process.platform === 'win32'?rootDir.replace(/\\/g, '\/'): rootDir
     const position = path.startsWith(rootDirData) ? rootDir.length : 0
     return !excludes.some((exclude) => path.includes(exclude, position))
   })
@@ -305,3 +305,103 @@ const compilerOptions: CompilerOptions = {
 play中正常执行vite就好
 
 bundle.write中preserveModulesRoot是维持原始文件夹结构的
+
+## 文档
+vitepress
+:::demo操作
+
+### demo
+#### 组件
+将demo作为全局组件在 .docs/vitepress/theme/index.ts中导入并使用
+明确模块使用如下
+:::demo 说点东西
+button //example下的.vue文件路径
+:::
+
+接收三个参数
+source:渲染的vue文件
+path:文件路径
+raw-source:文件文字内容
+
+实现展示/隐藏代码
+查看渲染结果
+#### 插件-plugin
+在.vitepress/config.mts中配置使用
+```js
+{
+  {
+    (md) => mdPlugin(md)
+  }
+}
+```
+plugin内容如下
+```js
+import mdContainer from 'markdown-it-container'
+import createDemoContainer from './demo.ts'
+export const mdPlugin = (md) => {
+  // :::demo的效果
+  md.use(mdContainer, 'demo', createDemoContainer(md))
+}
+
+```
+写下demo插件
+```ts
+import path from 'path'
+import fs from 'fs'
+import type MarkdownIt from 'markdown-it'
+import type Token from 'markdown-it/lib/token'
+import type Renderer from 'markdown-it/lib/renderer'
+
+interface ContainerOpts {
+  marker?: string | undefined
+  validate?(params: string): boolean
+  render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): string
+}
+
+function createDemoContainer(md: MarkdownIt): ContainerOpts {
+  return {
+    validate(params) {
+      return !!params.trim().match(/^demo\s*(.*)$/)
+    },
+
+    render(tokens, idx) {
+      const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
+      if (tokens[idx].nesting === 1 /* means the tag is opening */) {
+        // 拿到描述信息
+        const description = m && m.length > 1 ? m[1] : ''
+        // idx+2的那个信息中包含文件内容 可以children[0].content拿到
+        const sourceFileToken = tokens[idx + 2]
+        let source = ''
+        // 写下的文件名
+        const sourceFile = sourceFileToken.children?.[0].content ?? ''
+        if (sourceFileToken.type === 'inline') {
+          source = fs.readFileSync(
+            path.resolve(__dirname, `../../example/${sourceFile}.vue`),
+            'utf-8'
+          )
+        }
+        if (!source) throw new Error(`Incorrect source file: ${sourceFile}`)
+        return `<Demo source="${encodeURIComponent(
+          md.render(`\`\`\` vue\n${source}\`\`\``)
+        )}" path="${sourceFile}" raw-source="${encodeURIComponent(
+          source
+        )}" description="${encodeURIComponent(md.render(description))}">`
+      } else {
+        return '</Demo>\n'
+      }
+    },
+  }
+}
+
+export default createDemoContainer
+
+```
+
+#### example配置.vue文件
+docs目录下配置对应要展示的文件
+如 button
+
+#### 在文件中使用
+:::demo
+button
+:::
