@@ -121,6 +121,10 @@ const props = defineProps(buttonProps)
 
 - gulp-typescript 用于在构建流程中编译 TypeScript 文件
 - @types/gulp：解决gulp引入错误提示
+- autoprefixer添加一些兼容前缀如 webkit-
+-   cssnano   用于压缩和优化 CSS ,可以删除不必要的空格、注释，合并规则等，以减小 CSS 文件的大小。 项目中的配置避免了对颜色和字体进行转化
+- postcss用于处理css  允许你使用各种插件来转换、优化和分析 CSS 代码 
+- .
 
 ## 工具
 
@@ -165,12 +169,14 @@ export const excludeFiles = (files: string[]) => {
 }
 ```
 
+### VueCompiler
+
 ## 打包
 
 ### 清除命令
 
 实质运行："clean": "rimraf dist/deal-ant"
-代码中 withTaskName('cleanDist',async()=>run('pnpm run clean'))
+thTaskName('cleanDist',async()=>run('pnpm run clean'))
 
 ### 打包除ui页外packages下所有js,ts,vue
 
@@ -240,8 +246,60 @@ function copyFiles() {
 ```
 ### theme-chalk打包
 - font转移至dist下
+
 - 转化为css并压缩
-- 将dist转到根目录dist下
+
+- 将dist转到根目录dist/theme-chalk下
+
+- 将原始资源打包只dist/theme-chalk/src下
+
+### typescript打包
+
+[可参考链接](https://gitcode.csdn.net/66ca0d7baa1c2020b359b0b9.html)
+
+```js
+import { Project } from 'ts-morph'
+const compilerOptions: CompilerOptions = {
+    emitDeclarationOnly: true,//只输出类型文件
+    allowJs: true,
+    declaration: true,
+    outDir: path.resolve(dealAntDistDir, 'types'),
+    baseUrl: rootDir,
+    preserveSymlinks: true,//
+    skipLibCheck: true,
+  }
+  const project = new Project({
+    compilerOptions,
+    tsConfigFilePath: path.resolve(rootDir, 'tsconfig.json'),
+    skipAddingFilesFromTsConfig: true,//
+  })
+```
+
+**备注**：后续整理project.createSourceFile和 project.addSourceFileAtPath以及VueCompiler
+
+```js
+// 获取要转义的sourcefiles
+  const soruceFiles = await addSourceFiles(project)
+  const tasks = soruceFiles.map(async (sourceFile) => {
+    const emitOutput = sourceFile.getEmitOutput() //
+    const emitFiles = emitOutput.getOutputFiles()
+    const subTasks = emitFiles.map(async (outputFile) => {
+      const filepath = outputFile.getFilePath()
+      await mkdir(path.dirname(filepath), {
+        recursive: true,
+      })
+      await writeFile(filepath, pathRewriter('esm')(outputFile.getText()), 'utf-8')
+    })
+    await Promise.all(subTasks)
+  })
+  await Promise.all(tasks)
+```
+
+```js
+ const emitOutput = sourceFile.getEmitOutput() // 获取编译器的发射输出。
+    const emitFiles = emitOutput.getOutputFiles() //获取实际生成的发射文件（应为 .d.ts 文件）
+```
+
 
 
 play中正常执行vite就好

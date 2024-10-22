@@ -32,7 +32,7 @@ async function generateType() {
   // 获取要转义的sourcefiles
   const soruceFiles = await addSourceFiles(project)
   const tasks = soruceFiles.map(async (sourceFile) => {
-    const emitOutput = sourceFile.getEmitOutput() //
+    const emitOutput = sourceFile.getEmitOutput()
     const emitFiles = emitOutput.getOutputFiles()
     const subTasks = emitFiles.map(async (outputFile) => {
       const filepath = outputFile.getFilePath()

@@ -11,13 +11,15 @@
     "build": "gulp -f buildings/scripts/gulpfile.ts",
     "build:theme": "gulp -f packages/theme-chalk/gulpfile.ts",
     "clean": "rimraf dist/deal-ant",
-    "link:dealant": "pnpm link deal-ant"
+    "link:dealant": "pnpm link deal-ant",
+    "docs:dev": "pnpm -C docs docs:dev"
   },
   "dependencies": {
     "@deal-ant/components": "workspace:^",
     "@deal-ant/utils": "workspace:^"
   },
   "devDependencies": {
+    "@deal-ant/build": "workspace:^",
     "@deal-ant/theme-chalk": "workspace:^",
     "@vitejs/plugin-vue": "^2.3.3",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
