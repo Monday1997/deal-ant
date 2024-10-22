@@ -2,6 +2,7 @@ import path from 'path'
 import { parallel } from 'gulp'
 import { rollup } from 'rollup'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import esbuild from 'rollup-plugin-esbuild'
 import commonjs from '@rollup/plugin-commonjs'
@@ -17,6 +18,7 @@ import type { Plugin } from 'rollup'
 async function buildFullEntry() {
   const plugins: Plugin<any>[] = [
     vue({ isProduction: true }),
+    vueJsx(),
     nodeResolve({
       extensions: ['.mjs', '.js', '.json', '.ts'],
     }),

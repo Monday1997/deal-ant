@@ -20,6 +20,7 @@
 将工作区的包作为依赖添加
 
 pnpm add @deal-ant/utils @workspace:* -w
+pnpm link --dir=dist/deal-ant
 
 #### .vscode中extensions.json
 
@@ -122,7 +123,7 @@ const props = defineProps(buttonProps)
 - gulp-typescript 用于在构建流程中编译 TypeScript 文件
 - @types/gulp：解决gulp引入错误提示
 - autoprefixer添加一些兼容前缀如 webkit-
--   cssnano   用于压缩和优化 CSS ,可以删除不必要的空格、注释，合并规则等，以减小 CSS 文件的大小。 项目中的配置避免了对颜色和字体进行转化
+- cssnano   用于压缩和优化 CSS ,可以删除不必要的空格、注释，合并规则等，以减小 CSS 文件的大小。 项目中的配置避免了对颜色和字体进行转化
 - postcss用于处理css  允许你使用各种插件来转换、优化和分析 CSS 代码
 - .
 
@@ -244,7 +245,9 @@ function copyFiles() {
   return Promise.all([copyPackage(), copyReadme()])
 }
 ```
+
 ### theme-chalk打包
+
 - font转移至dist下
 
 - 转化为css并压缩
@@ -300,18 +303,19 @@ const compilerOptions: CompilerOptions = {
     const emitFiles = emitOutput.getOutputFiles() //获取实际生成的发射文件（应为 .d.ts 文件）
 ```
 
-
-
 play中正常执行vite就好
 
 bundle.write中preserveModulesRoot是维持原始文件夹结构的
 
 ## 文档
+
 vitepress
 :::demo操作
 
 ### demo
+
 #### 组件
+
 将demo作为全局组件在 .docs/vitepress/theme/index.ts中导入并使用
 明确模块使用如下
 :::demo 说点东西
@@ -325,8 +329,11 @@ raw-source:文件文字内容
 
 实现展示/隐藏代码
 查看渲染结果
+
 #### 插件-plugin
+
 在.vitepress/config.mts中配置使用
+
 ```js
 {
   {
@@ -334,7 +341,9 @@ raw-source:文件文字内容
   }
 }
 ```
+
 plugin内容如下
+
 ```js
 import mdContainer from 'markdown-it-container'
 import createDemoContainer from './demo.ts'
@@ -344,7 +353,9 @@ export const mdPlugin = (md) => {
 }
 
 ```
+
 写下demo插件
+
 ```ts
 import path from 'path'
 import fs from 'fs'
@@ -398,10 +409,12 @@ export default createDemoContainer
 ```
 
 #### example配置.vue文件
+
 docs目录下配置对应要展示的文件
 如 button
 
 #### 在文件中使用
+
 :::demo
 button
 :::
