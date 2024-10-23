@@ -8,7 +8,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'deal-ant': path.resolve(__dirname, '../dist/deal-ant'),
+      'deal-ant': path.resolve(__dirname, '../dist/deal-ant/*'),
     },
   },
   plugins: [vue(), vueJsx()],

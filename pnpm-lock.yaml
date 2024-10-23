@@ -134,6 +134,15 @@ importers:
         specifier: 21.0.1
         version: 21.0.1
 
+  dist/deal-ant:
+    dependencies:
+      deal-ant:
+        specifier: link:D:/tmp/pnpm-test
+        version: link:../..
+      vue:
+        specifier: ^3.4.38
+        version: 3.4.38(typescript@4.9.5)
+
   packages/component: {}
 
   packages/deal-ant-ui:

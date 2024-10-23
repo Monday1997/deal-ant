@@ -11,7 +11,7 @@
     "build": "gulp -f buildings/scripts/gulpfile.ts",
     "build:theme": "gulp -f packages/theme-chalk/gulpfile.ts",
     "clean": "rimraf dist/deal-ant",
-    "link:dealant": "pnpm link deal-ant",
+    "link:dealant": "pnpm link --dir=dist/deal-ant",
     "docs:dev": "pnpm -C docs docs:dev"
   },
   "dependencies": {

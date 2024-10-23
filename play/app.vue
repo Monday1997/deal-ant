@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { CIconType } from 'deal-ant'
-const color = CIconType.red
+const color = CIconType.green
 </script>
 
 <style scoped></style>
