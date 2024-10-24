@@ -13,5 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "sass": "^1.77.8"
+  },
+  "dependencies": {
+    "ant-design-vue": "3.2.20",
+    "vue-router": "^4.4.5"
   }
 }
