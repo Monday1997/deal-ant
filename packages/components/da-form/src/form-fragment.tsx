@@ -12,16 +12,12 @@
 
 import { h, unref } from 'vue'
 import type { SelectProps } from 'ant-design-vue/lib/vc-select'
-import type { FormGroupItem } from './types'
+import type { FormGroupItem } from './typing'
 
-export const renderInput = <T,>(config: FormGroupItem, modelData: T, originData, elData) => {
+export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps} {...(originData || {})}>
-      <a-input
-        {...config.elProps}
-        {...(elData[config.key] || {})}
-        vModel={[modelData[config.key], 'value']}
-      />
+    <a-form-item {...config.originProps}>
+      <a-input {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
 }

@@ -18,6 +18,5 @@ export const daFormProps = {
 
   // row 相关配置
   rowProps: { type: Object as PropType<RowProps>, default: () => ({}) },
-  dependency: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
 } as const
 export type DaFormProps = ExtractPropTypes<typeof daFormProps>
