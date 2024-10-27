@@ -12,7 +12,7 @@
 
 import { h, unref } from 'vue'
 import type { SelectProps } from 'ant-design-vue/lib/vc-select'
-import type { FormGroupItem } from './typing'
+import type { FormGroupItem } from './types'
 
 export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
