@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DaForm :grid="true" :formGroup="formGroup" :value="formValue">
+    <DaForm :grid="true" :formGroup="formGroup" v-model:value="formValue" :dependency="dependency">
       <template #buttons>
         <a-button type="primary">搜索</a-button>
         <a-button type="primary">导出</a-button>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 const formGroup = [
   {
     key: 'item1',
@@ -22,6 +22,9 @@ const formGroup = [
     colDouble: true,
     originProps: {
       label: '一个名字',
+    },
+    watchDeps({ setOrigin, setElProps }, deps) {
+      setElProps('disabled', true)
     },
   },
   {
@@ -67,9 +70,19 @@ const formGroup = [
     },
   },
 ]
+const aa = ref(1)
+const dependency = {
+  item1: [aa],
+}
 const formValue = reactive({
-  item1: '',
+  item1: '123',
+  item2: '888',
+  $disabled: { item1: true },
 })
+setTimeout(() => {
+  // formValue.$disabled.item1 = false
+  aa.value = 2
+}, 2000)
 </script>
 
 <style lang="scss" scoped></style>

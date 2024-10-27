@@ -21,4 +21,9 @@ export interface FormGroupItem<T = any> {
   everyTimeLoad?: boolean
   // 组合查询时，下拉框的配置项
   selectConfig?: FormGroupItem
+  watchDeps?: (watchDepsFn: watchDepsFn, value: any) => void
+}
+type watchDepsFn = {
+  setOrigin?: <T = any>(key: string, val: T) => void
+  setElProps?: <T = any>(key: string, val: T) => void
 }

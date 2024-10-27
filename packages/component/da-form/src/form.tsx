@@ -1,6 +1,21 @@
 import { defineComponent, ref, watch } from 'vue'
+import { isFunction } from '@deal-ant/utils'
 import { daFormProps } from './props'
 import * as formFragment from './form-fragment'
+
+const colspan = {
+  xs: 24,
+  sm: 24,
+  md: 8,
+  lg: 8,
+  xl: 6,
+  xxl: 4,
+  xxxl: 4,
+}
+const colspanDouble = Object.entries(colspan).reduce((pre, [key, value]) => {
+  pre[key] = value === 24 ? value : value * 2
+  return pre
+}, {})
 
 export default defineComponent({
   name: 'DaForm',
@@ -22,8 +37,32 @@ export default defineComponent({
     function getFormRef() {
       return formRef.value
     }
-
-    return { formData, formRef, getFormRef }
+    const originData = ref({})
+    const elData = ref({})
+    for (const key in props.dependency) {
+      const stopWatch = watch(props.dependency[key], (val) => {
+        // 找到所在的key的watchDeps
+        const currentItem = props.formGroup.find((item) => item.key === key)
+        if (!currentItem) {
+          console.error(`deal-form:监听项${key}在formGroup中不存在`)
+          return stopWatch()
+        }
+        if (!isFunction(currentItem!.watchDeps)) {
+          console.error(`deal-form:${key}未正确设置设置watchDeps`)
+          return stopWatch()
+        }
+        function setOrigin<T = any>(originKey: string, value: T) {
+          elData.value[key] = originData.value[key] || {}
+          elData.value[key][originKey] = value
+        }
+        function setElProps<T = any>(elKey: string, value: T) {
+          elData.value[key] = elData.value[key] || {}
+          elData.value[key][elKey] = value
+        }
+        currentItem.watchDeps && currentItem.watchDeps({ setOrigin, setElProps }, val)
+      })
+    }
+    return { formData, formRef, getFormRef, originData, elData }
   },
 
   render() {
@@ -33,25 +72,14 @@ export default defineComponent({
           this.$slots[item.key] ? (
             this.$slots[item.key]!()
           ) : (
-            <>{formFragment[item.fragmentKey](item, this.formData)()}</>
+            <>
+              {formFragment[item.fragmentKey](item, this.formData, this.originData, this.elData)()}
+            </>
           )
         )}
         {this.$slots.buttons && <a-form-item>{this.$slots.buttons()}</a-form-item>}
       </>
     )
-    const colspan = {
-      xs: 24,
-      sm: 24,
-      md: 8,
-      lg: 8,
-      xl: 6,
-      xxl: 4,
-      xxxl: 4,
-    }
-    const colspanDouble = Object.entries(colspan).reduce((pre, [key, value]) => {
-      pre[key] = value === 24 ? value : value * 2
-      return pre
-    }, {})
     const gridLayoutRender = () => {
       return (
         <>
@@ -62,7 +90,12 @@ export default defineComponent({
               ) : (
                 <>
                   <a-col {...(item.colDouble ? colspanDouble : colspan)} {...item.colProps}>
-                    {formFragment[item.fragmentKey](item, this.formData)()}
+                    {formFragment[item.fragmentKey](
+                      item,
+                      this.formData,
+                      this.originData,
+                      this.elData
+                    )()}
                   </a-col>
                 </>
               )
