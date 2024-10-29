@@ -1,24 +1,18 @@
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
 import { daFormProps } from './props'
 import * as formFragment from './form-fragment'
-
+import { setDefaultFormData } from './utils/index'
 export default defineComponent({
   name: 'DaForm',
   props: daFormProps,
   emits: ['update:value'],
-  setup(props) {
-    const formData = ref({})
-    watch(
-      () => props.value,
-      (val) => {
-        if (val) {
-          formData.value = val
-        }
-      },
-      { immediate: true }
-    )
-
+  setup(props, { emit }) {
+    const formData = reactive(props.value)
     const formRef = ref(null)
+    setDefaultFormData(
+      { formGroup: props.formGroup, form: formData, originProps: props.originProps },
+      emit
+    )
     function getFormRef() {
       return formRef.value
     }

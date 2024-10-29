@@ -23,10 +23,11 @@
         <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
       </div>
 
-      <a-layout-content
-        :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
-      >
-        <router-view />
+      <a-layout-content :style="contentStyle">
+        <div class="main">
+          <router-view />
+        </div>
+
         <!-- <keep-alive>
         </keep-alive> -->
       </a-layout-content>
@@ -46,6 +47,16 @@ import { routes } from '@/router'
 const selectedKeys = ref<string[]>(['1'])
 const collapsed = ref<boolean>(false)
 const menuList = routes[0].children
+const contentStyle = {
+  margin: '24px 16px',
+  padding: '24px',
+  paddingTop: '0',
+  background: '#fff',
+  minHeight: '280px',
+  position: 'relative',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+}
 </script>
 <style>
 .header {
@@ -72,5 +83,8 @@ const menuList = routes[0].children
 
 .site-layout .site-layout-background {
   background: #fff;
+}
+.main {
+  margin-top: 24px;
 }
 </style>

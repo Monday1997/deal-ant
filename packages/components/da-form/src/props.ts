@@ -3,7 +3,7 @@ import type { FormGroupItem } from './types'
 import type { FormProps, RowProps } from 'ant-design-vue'
 export const daFormProps = {
   // 初始化数据
-  value: { type: Object, default: () => ({}) },
+  value: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
 
   // 表单项配置
   formGroup: { type: Array as PropType<Array<FormGroupItem>>, required: true },

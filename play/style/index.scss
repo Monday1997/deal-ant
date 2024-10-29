@@ -301,32 +301,6 @@ body,
   }
 }
 
-// 列表分页固定底部
-.bottom-fix-table {
-  padding-bottom: 64px;
-  // 分页固定底部的时候抬高x轴滚动栏
-  .ant-table-sticky-scroll {
-    bottom: 68px !important;
-  }
-
-  .ant-table-pagination {
-    position: fixed;
-    right: 16px;
-    bottom: 0;
-    left: 16px;
-    z-index: 9;
-    margin: 0;
-    padding: 16px 32px;
-    background-color: #fff;
-    border-top: 1px solid rgba(6, 21, 51, 0.06);
-
-    .ant-pagination-total-text {
-      // flex: 1;
-      margin-right: 16px;
-    }
-  }
-}
-
 // 工单的弹窗
 .work-order-modal {
   .ant-modal-title {
