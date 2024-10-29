@@ -8,13 +8,16 @@
 <script setup lang="ts">
 import type { FormGroupItem } from '@deal-ant/componenst'
 import { reactive, ref } from 'vue'
+import dayjs from 'dayjs'
 // const formModel = reactive<{
 //   item1?: string[]
 //   item2?: string
 // }>({
 //   // item2: '',
 // })
-const formModel = reactive({})
+const formModel = reactive({
+  item3: [dayjs('2014-05-05', 'YYYY-MM-DD'), dayjs('2014-06-05', 'YYYY-MM-DD')],
+})
 const formGroup: FormGroupItem[] = [
   {
     key: 'item1',
@@ -44,10 +47,23 @@ const formGroup: FormGroupItem[] = [
       allowClear: true,
     },
   },
+  {
+    key: 'item3',
+    fragmentKey: 'renderRangePicker',
+    colDouble: true,
+    originProps: {
+      label: '第3个',
+    },
+    elProps: {
+      allowClear: true,
+      picker: 'date',
+    },
+  },
 ]
 const daform = ref()
 function btnclick() {
-  daform.value.getFormRef().validateFields()
+  // daform.value.getFormRef().validateFields()
+  console.log(daform.value.getFormData())
 }
 </script>
 

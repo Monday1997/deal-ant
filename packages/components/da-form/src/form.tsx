@@ -1,23 +1,49 @@
 import { defineComponent, reactive, ref, watch } from 'vue'
+import { isArray, isDayJs, isEmpty } from '@deal-ant/utils'
+import dayjs from 'dayjs'
 import { daFormProps } from './props'
 import * as formFragment from './form-fragment'
 import { setDefaultFormData } from './utils/index'
+import type { Form } from 'ant-design-vue'
 export default defineComponent({
   name: 'DaForm',
   props: daFormProps,
   emits: ['update:value'],
-  setup(props, { emit }) {
-    const formData = reactive(props.value)
-    const formRef = ref(null)
-    setDefaultFormData(
-      { formGroup: props.formGroup, form: formData, originProps: props.originProps },
-      emit
-    )
-    function getFormRef() {
-      return formRef.value
+  setup(props) {
+    const formData = reactive(props.value || {})
+    const formRef = ref<InstanceType<typeof Form>>()
+    setDefaultFormData({
+      formGroup: props.formGroup,
+      form: formData,
+      originProps: props.originProps,
+    })
+    // 处理参数
+    function getFormData() {
+      const obj = {}
+      props.formGroup.forEach((item) => {
+        const { key } = item
+        const value = formData[key]
+        if (
+          item.fragmentKey === 'renderRangePicker' &&
+          isArray(value) &&
+          isDayJs(value[0]) &&
+          (item.elProps?.picker === 'date' || !item.elProps?.picker)
+        ) {
+          obj[key] = value.map((item) => {
+            return isDayJs(item) ? dayjs(item).format('YYYY-MM-DD') : item
+          })
+          return
+        }
+        if (item.fragmentKey === 'renderDatePicker' && isDayJs(value)) {
+          return (obj[key] = dayjs(value).format('YYYY-MM-DD'))
+        }
+        if (!isEmpty(value)) {
+          obj[key] = value
+        }
+      })
+      return obj
     }
-
-    return { formData, formRef, getFormRef }
+    return { formData, getFormData, formRef, ...formRef.value }
   },
 
   render() {

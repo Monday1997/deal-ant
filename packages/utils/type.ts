@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 export const isNumber = (val: any): val is number => typeof val === 'number'
 
 export function isArray(val: any): val is any[] {
@@ -87,6 +88,10 @@ export function isEmpty(val: string | any[] | object | null | undefined | number
   }
 
   return false
+}
+
+export function isDayJs(value): value is dayjs.Dayjs {
+  return dayjs.isDayjs(value) && value.isValid()
 }
 
 //判断是否手机端

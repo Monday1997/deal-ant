@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@deal-ant/components": "workspace:^",
+    "@deal-ant/hooks": "workspace:^",
     "@deal-ant/utils": "workspace:^"
   },
   "devDependencies": {
@@ -24,6 +25,7 @@
     "@vitejs/plugin-vue": "^2.3.3",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "ant-design-vue": "4.2.3",
+    "axios": "^1.7.7",
     "eslint": "8.18.0",
     "eslint-define-config": "1.5.1",
     "gulp": "4.0.2",
