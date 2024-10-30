@@ -15,7 +15,7 @@ export default defineComponent({
     setDefaultFormData({
       formGroup: props.formGroup,
       form: formData,
-      originProps: props.originProps,
+      formProps: props.formProps,
     })
     // 处理参数
     function getFormData() {
@@ -24,7 +24,7 @@ export default defineComponent({
         const { key } = item
         const value = formData[key]
         if (
-          item.fragmentKey === 'renderRangePicker' &&
+          item.renderKey === 'renderRangePicker' &&
           isArray(value) &&
           isDayJs(value[0]) &&
           (item.elProps?.picker === 'date' || !item.elProps?.picker)
@@ -34,7 +34,7 @@ export default defineComponent({
           })
           return
         }
-        if (item.fragmentKey === 'renderDatePicker' && isDayJs(value)) {
+        if (item.renderKey === 'renderDatePicker' && isDayJs(value)) {
           return (obj[key] = dayjs(value).format('YYYY-MM-DD'))
         }
         if (!isEmpty(value)) {
@@ -53,7 +53,7 @@ export default defineComponent({
           this.$slots[item.key] ? (
             this.$slots[item.key]!()
           ) : (
-            <>{formFragment[item.fragmentKey](item, this.formData)()}</>
+            <>{formFragment[item.renderKey](item, this.formData)()}</>
           )
         )}
         {this.$slots.buttons && <a-form-item>{this.$slots.buttons()}</a-form-item>}
@@ -82,7 +82,7 @@ export default defineComponent({
               ) : (
                 <>
                   <a-col {...(item.colDouble ? colspanDouble : colspan)} {...item.colProps}>
-                    {formFragment[item.fragmentKey](item, this.formData)()}
+                    {formFragment[item.renderKey](item, this.formData)()}
                   </a-col>
                 </>
               )
@@ -100,7 +100,7 @@ export default defineComponent({
     }
     return (
       <a-form
-        {...this.$props.originProps}
+        {...this.$props.formProps}
         model={this.formData}
         ref={(ref: any) => (this.formRef = ref)}
       >

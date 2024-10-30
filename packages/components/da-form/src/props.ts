@@ -14,7 +14,7 @@ export const daFormProps = {
   gripInlineBtn: { type: Boolean, default: false },
 
   // 用于 v-bind 绑定antdv表单组件props
-  originProps: { type: Object as PropType<FormProps>, default: () => ({}) },
+  formProps: { type: Object as PropType<FormProps>, default: () => ({}) },
 
   // row 相关配置
   rowProps: { type: Object as PropType<RowProps>, default: () => ({}) },

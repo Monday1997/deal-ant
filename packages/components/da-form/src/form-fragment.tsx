@@ -16,7 +16,7 @@ import type { SelectProps } from 'ant-design-vue/lib/vc-select'
 import type { FormGroupItem } from './types'
 export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-input {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -24,14 +24,14 @@ export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderInputNumber = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-input-number {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
 }
 export const renderTextarea = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-textarea {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -39,7 +39,7 @@ export const renderTextarea = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderSelect = <T,>(config: FormGroupItem<SelectProps>, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <DaSelect config={config} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -47,7 +47,7 @@ export const renderSelect = <T,>(config: FormGroupItem<SelectProps>, modelData: 
 
 export const renderMonthPicker = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-month-picker {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -55,7 +55,7 @@ export const renderMonthPicker = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderDatePicker = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-date-picker {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -63,7 +63,7 @@ export const renderDatePicker = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderRangePicker = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-range-picker {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -71,7 +71,7 @@ export const renderRangePicker = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderCheckbox = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-checkbox-group {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -79,7 +79,7 @@ export const renderCheckbox = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderRadio = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-radio-group {...config.elProps} vModel={[modelData[config.key], 'value']}>
         {unref(config.options)?.map((item) =>
           config.elProps && config.elProps.optionType === 'normal' ? (
@@ -95,7 +95,7 @@ export const renderRadio = <T,>(config: FormGroupItem, modelData: T) => {
 
 export const renderSwitch = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <a-switch {...config.elProps} vModel={[modelData[config.key], 'checked']} />
     </a-form-item>
   )
@@ -103,7 +103,7 @@ export const renderSwitch = <T,>(config: FormGroupItem, modelData: T) => {
 
 /* export const renderCascader = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <state-cascader config={config} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
@@ -111,7 +111,7 @@ export const renderSwitch = <T,>(config: FormGroupItem, modelData: T) => {
 
 /* export const renderSelectAndInput = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       <div class="flex-wrap key-word-item">
         <state-select
           config={config['selectConfig']}
@@ -133,7 +133,7 @@ export const renderSwitch = <T,>(config: FormGroupItem, modelData: T) => {
     return
   }
   return () => (
-    <a-form-item {...config.originProps}>
+    <a-form-item {...config.formProps}>
       {h(customCom, {
         value: modelData[config.key],
         ['onUpdate:value']: (value: any) => (modelData[config.key] = value),

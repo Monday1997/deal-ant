@@ -4,11 +4,11 @@ import type { FormItemProps } from 'ant-design-vue'
 export function setDefaultFormData(data: {
   formGroup: FormGroupItem[]
   form: Record<string, any>
-  originProps: FormItemProps
+  formProps: FormItemProps
 }) {
   data.formGroup.map((item) => {
     setPlaceHolderDefault(item)
-    setRequiredMessage(item, data.originProps)
+    setRequiredMessage(item, data.formProps)
     setDefaultWith(item)
   })
 }
@@ -18,12 +18,12 @@ function setDefaultWith(item) {
     item.elProps.style = 'width:100%'
   }
 }
-function setRequiredMessage(item: FormGroupItem, originProps: FormItemProps) {
-  if (item.originProps?.required && !item.originProps.rules && !originProps.rules?.[item.key]) {
-    item.originProps.name = item.key
-    item.originProps.rules = {
+function setRequiredMessage(item: FormGroupItem, formProps: FormItemProps) {
+  if (item.formProps?.required && !item.formProps.rules && !formProps.rules?.[item.key]) {
+    item.formProps.name = item.key
+    item.formProps.rules = {
       required: true,
-      message: `${item.originProps.label}不能为空`,
+      message: `${item.formProps.label}不能为空`,
       trigger: ['blur', 'change'],
     }
   }
@@ -32,13 +32,13 @@ function setPlaceHolderDefault(item: FormGroupItem) {
   if (item.elProps?.placeholder) {
     return
   }
-  const fragmentKey = item.fragmentKey.toLowerCase()
+  const renderKey = item.renderKey.toLowerCase()
   item.elProps = item.elProps || {}
-  if (fragmentKey.includes('input')) {
-    item.elProps.placeholder = `请输入${item.originProps?.label || ''}`
-  } else if (item.fragmentKey === 'renderRangePicker') {
+  if (renderKey.includes('input')) {
+    item.elProps.placeholder = `请输入${item.formProps?.label || ''}`
+  } else if (item.renderKey === 'renderRangePicker') {
     item.elProps.placeholder = [`开始时间`, '结束时间']
   } else {
-    item.elProps.placeholder = `请选择${item.originProps?.label || ''}`
+    item.elProps.placeholder = `请选择${item.formProps?.label || ''}`
   }
 }

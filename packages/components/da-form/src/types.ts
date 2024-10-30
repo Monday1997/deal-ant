@@ -1,12 +1,12 @@
 import type * as formFragment from './form-fragment'
 import type { CSSProperties, Component } from 'vue'
 import type { ColProps, FormItemProps } from 'ant-design-vue'
-export type fragmentKey = keyof typeof formFragment
+export type renderKey = keyof typeof formFragment
 type TObject = Record<string, any>
 export interface FormGroupItem<T = any> {
   key: string
-  fragmentKey: fragmentKey
-  originProps?: FormItemProps
+  renderKey: renderKey
+  formProps?: FormItemProps
   options?: TObject[]
   // optionsFormat?: (res: IAxiosResponse<TObject>, value: string[]) => Option[]
   // url?: string
