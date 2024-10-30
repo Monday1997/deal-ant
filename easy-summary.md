@@ -418,3 +418,32 @@ docs目录下配置对应要展示的文件
 :::demo
 button
 :::
+
+ts中关于给对象属性赋值函数
+```ts
+type objGo = <T>(value: string, a: T) => T
+const obj: {
+  go?: boolean | objGo
+} = {}
+
+obj.go = ((value: string, list: string[]) => {
+  list.push(value)
+  return list
+}) as objGo
+
+// 或者
+obj.go = function (value: string, list: string[]){
+  list.push(value)
+  return list
+} as objGo
+
+```
+
+默认添加了搜索
+若不需要搜索需要设置 showSearch=false
+不需要担心fieldNames问题
+后续添加下拉框的分页搜索 远程搜索
+
+
+form加上依赖注入，form加个setDisplay setDisabled功能
+

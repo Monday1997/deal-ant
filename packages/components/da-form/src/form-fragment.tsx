@@ -11,6 +11,7 @@
  */
 
 import { h, unref } from 'vue'
+import { DaSelect } from '@deal-ant/components'
 import type { SelectProps } from 'ant-design-vue/lib/vc-select'
 import type { FormGroupItem } from './types'
 export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
@@ -28,7 +29,6 @@ export const renderInputNumber = <T,>(config: FormGroupItem, modelData: T) => {
     </a-form-item>
   )
 }
-
 export const renderTextarea = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
     <a-form-item {...config.originProps}>
@@ -40,8 +40,7 @@ export const renderTextarea = <T,>(config: FormGroupItem, modelData: T) => {
 export const renderSelect = <T,>(config: FormGroupItem<SelectProps>, modelData: T) => {
   return () => (
     <a-form-item {...config.originProps}>
-      {/* <stateSelect config={config} vModel={[modelData[config.key], 'value']} /> */}
-      <a-select {...config.elProps} vModel={[modelData[config.key], 'value']} />
+      <DaSelect config={config} vModel={[modelData[config.key], 'value']} />
     </a-form-item>
   )
 }

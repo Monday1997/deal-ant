@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Da-form ref="daform" :grid="true" :form-group="formGroup" v-model:value="formModel" />
+    <DaForm ref="daform" :grid="true" :form-group="formGroup" v-model:value="formModel" />
     <a-button @click="btnclick">56565</a-button>
   </div>
 </template>
@@ -26,14 +26,16 @@ const formGroup: FormGroupItem[] = [
       label: '第一个',
       required: true,
     },
-
     elProps: {
       allowClear: true,
-      options: [
-        { label: '123', value: '1' },
-        { label: '1256', value: '2' },
-      ],
+      fieldNames: {
+        label: 'labelabc',
+      },
     },
+    options: [
+      { labelabc: '123', value: '1' },
+      { labelabc: '1256', value: '2' },
+    ],
   },
   {
     key: 'item2',
