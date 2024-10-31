@@ -9,7 +9,15 @@ export default defineComponent({
   props: daSelectProps,
   emits: ['update:value', 'change'],
   setup(props, { emit }) {
-    const currentValue = ref()
+    const currentValue = computed({
+      get() {
+        return props.value
+      },
+      set(val) {
+        emit('update:value', val)
+      },
+    })
+
     const loading = ref(false)
     const elProps = computed(setDefaultSearch)
     function setDefaultSearch() {
