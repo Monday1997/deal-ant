@@ -7,20 +7,21 @@ export function setDefaultFormData(data: {
   formProps: FormItemProps
 }) {
   data.formGroup.map((item) => {
-    setPlaceHolderDefault(item)
-    setRequiredMessage(item, data.formProps)
-    setDefaultWith(item)
+    setElProps(item)
+    setDefaultOrigin(item, data.formProps)
   })
 }
-function setDefaultWith(item) {
-  item.elProps = item.elProps || {}
-  if (isUndefined(item.elProps.style)) {
-    item.elProps.style = 'width:100%'
+
+function setDefaultOrigin(item: FormGroupItem, formProps: FormItemProps) {
+  setRequiredMessage(item, formProps)
+  item.formProps = item.formProps || {}
+  if (item.label) {
+    item.formProps!.label = item.label
   }
+  item.formProps.name = item.key
 }
 function setRequiredMessage(item: FormGroupItem, formProps: FormItemProps) {
   if (item.formProps?.required && !item.formProps.rules && !formProps.rules?.[item.key]) {
-    item.formProps.name = item.key
     item.formProps.rules = {
       required: true,
       message: `${item.formProps.label}不能为空`,
@@ -28,7 +29,8 @@ function setRequiredMessage(item: FormGroupItem, formProps: FormItemProps) {
     }
   }
 }
-function setPlaceHolderDefault(item: FormGroupItem) {
+
+function setElProps(item: FormGroupItem) {
   if (item.elProps?.placeholder) {
     return
   }
@@ -40,5 +42,15 @@ function setPlaceHolderDefault(item: FormGroupItem) {
     item.elProps.placeholder = [`开始时间`, '结束时间']
   } else {
     item.elProps.placeholder = `请选择${item.formProps?.label || ''}`
+  }
+  if (isUndefined(item.elProps.allowClear)) {
+    item.elProps.allowClear = true
+  }
+  setDefaultStyle(item)
+}
+function setDefaultStyle(item) {
+  item.elProps = item.elProps || {}
+  if (isUndefined(item.elProps.style)) {
+    item.elProps.style = 'width:100%'
   }
 }

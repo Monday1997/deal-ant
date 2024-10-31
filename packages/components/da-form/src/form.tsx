@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref, watch } from 'vue'
+import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
 import { isArray, isDayJs, isEmpty } from '@deal-ant/utils'
 import dayjs from 'dayjs'
 import { daFormProps } from './props'
@@ -43,7 +43,22 @@ export default defineComponent({
       })
       return obj
     }
-    return { formData, getFormData, formRef, ...formRef.value }
+    const formAttrs = reactive({
+      clearValidate: undefined,
+      resetFields: undefined,
+      scrollToField: undefined,
+      validate: undefined,
+      validateFields: undefined,
+    })
+    watch(
+      () => formRef.value,
+      (val) => {
+        for (const key in val) {
+          formAttrs[key] = val[key]
+        }
+      }
+    )
+    return { formData, getFormData, formRef, ...toRefs(formAttrs) }
   },
 
   render() {
