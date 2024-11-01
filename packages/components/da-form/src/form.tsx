@@ -9,7 +9,7 @@ export default defineComponent({
   name: 'DaForm',
   props: daFormProps,
   emits: ['update:value'],
-  setup(props) {
+  setup(props, { expose }) {
     const formData = reactive(props.value || {})
     const formRef = ref<InstanceType<typeof Form>>()
     setDefaultFormData({
@@ -58,7 +58,12 @@ export default defineComponent({
         }
       }
     )
-    return { formData, getFormData, formRef, ...toRefs(formAttrs) }
+    expose({
+      ...toRefs(formAttrs),
+      getFormData,
+      formData,
+    })
+    return { formData, getFormData, formRef }
   },
 
   render() {

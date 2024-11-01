@@ -14,6 +14,14 @@ export const routes: Readonly<RouteRecordRaw[]> = [
         },
         children: [
           {
+            path: '/main-com/da-table',
+            name: 'daTable',
+            meta: {
+              name: 'da-table',
+            },
+            component: () => import('@/pages/da-table.vue'),
+          },
+          {
             path: '/main-com/da-form',
             name: 'dafrom',
             meta: {

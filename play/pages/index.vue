@@ -13,7 +13,7 @@
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
-    <a-layout>
+    <a-layout :style="{ overflowY: 'auto' }">
       <div class="header">
         <menu-unfold-outlined
           v-if="collapsed"
@@ -62,6 +62,7 @@ const contentStyle = {
 .header {
   padding: 12px 16px;
   background-color: #fff;
+  position: sticky;
 }
 #components-layout-demo-custom-trigger .trigger {
   font-size: 18px;

@@ -442,8 +442,51 @@ obj.go = function (value: string, list: string[]){
 默认添加了搜索
 若不需要搜索需要设置 showSearch=false
 不需要担心fieldNames问题
+默认添加时间转换功能
 后续添加下拉框的分页搜索 远程搜索
 
 
 form加上依赖注入，form加个setDisplay setDisabled功能
 
+### ts中的this可以这样拿
+  return function (this: any, ...args: Parameters<T>) {
+    clearTimeout(time)
+    time = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  }
+
+  如下使用torefs会出不来 在from暴露对象那块会用到
+
+  ```js
+  <template>
+  <div>
+  {{attr1}}
+    {{ggg}}
+  </div>
+</template>
+
+<script>
+
+import {reactive,toRefs} from 'vue';
+
+export default {
+  setup() {
+    let obj = reactive({attr1:'ss'})
+  setTimeout(()=>
+  {
+    obj.ggg = 'bbbbb'
+  },3000)
+    return {...toRefs(obj)};
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+
+</style>
+
+  ```
+
+### expose
+暴露公共属性

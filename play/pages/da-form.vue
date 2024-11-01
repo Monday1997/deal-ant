@@ -21,8 +21,8 @@ const formModel = reactive({
 const formGroup: FormGroupItem[] = [
   {
     key: 'item1',
-    fragmentKey: 'renderSelect',
-    originProps: {
+    renderKey: 'renderSelect',
+    formProps: {
       label: '第一个',
       required: true,
     },
@@ -39,8 +39,8 @@ const formGroup: FormGroupItem[] = [
   },
   {
     key: 'item2',
-    fragmentKey: 'renderInput',
-    originProps: {
+    renderKey: 'renderInput',
+    formProps: {
       label: '第2个',
       required: true,
     },
@@ -51,9 +51,9 @@ const formGroup: FormGroupItem[] = [
   },
   {
     key: 'item3',
-    fragmentKey: 'renderRangePicker',
+    renderKey: 'renderRangePicker',
     colDouble: true,
-    originProps: {
+    formProps: {
       label: '第3个',
     },
     elProps: {
