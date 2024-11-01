@@ -4,12 +4,16 @@
       <template #buttons>
         <a-button>555</a-button>
       </template>
+      <template #bodyCell="{ text, column }">
+        <template v-if="column.dataIndex==='title1'">
+          {{ text }}+'狗狗'
+          </template>
+      </template>
     </DaTable>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 const lista = Array.from(Array(22), (_, _index) => ({ id: _index, name: `66${_index}` }))
 const api = () => {
   return Promise.resolve({
@@ -78,6 +82,7 @@ const columns = [
     width: 96,
   },
 ]
+
 </script>
 
 <style scoped></style>

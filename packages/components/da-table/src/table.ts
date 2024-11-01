@@ -1,7 +1,7 @@
+import type { ColumnsItem, Tapi } from './types'
 import type { IUseTableOptions } from '@deal-ant/hooks'
-import type { Tapi } from './types'
 import type { ExtractPropTypes, PropType } from 'vue'
-import type { AxiosResponse, ColumnsItem } from 'axios'
+import type { AxiosResponse } from 'axios'
 export const tableProps = {
   api: {
     type: Function as PropType<() => Promise<AxiosResponse<Tapi>>>,

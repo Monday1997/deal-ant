@@ -16,7 +16,12 @@
     :scroll="{ x: '100%' }"
     table-layout="fixed"
     @change="tableChange"
-  />
+  >
+    <template v-for="item in TableslotsList" :key="item" #[item]="slotData">
+      <slot v-if="slotData" :name="item" v-bind="slotData" />
+      <slot v-else :name="item" />
+    </template>
+  </Table>
 </template>
 
 <script setup lang="ts">
@@ -24,13 +29,14 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import { Table } from 'ant-design-vue'
 import { useTable } from '@deal-ant/hooks'
 import { debounce } from '@deal-ant/utils'
-import { DaForm } from '@deal-ant/components'
 import { tableProps } from './table'
+import { TableslotsList } from './config'
+import type { DaFormInstance } from '@deal-ant/components'
 const props = defineProps(tableProps)
 defineOptions({
   name: 'DaTable',
 })
-const refDaForm = ref<InstanceType<typeof DaForm>>()
+const refDaForm = ref<DaFormInstance>()
 const tableFormValue = reactive({})
 const tableForm = computed(() => {
   return props.columns
@@ -56,14 +62,13 @@ const tableColumns = computed(() => {
     .filter((item) => !item.hideInTable)
     .map((item) => {
       return {
-        dataIndex: item.dataIndex,
+        dataIndex: item.key,
         ...item,
       }
     })
 })
 function reset() {
   refDaForm.value!.resetFields()
-  console.log(refDaForm.value)
 }
 const search = debounce(() => {
   getTableList('search')

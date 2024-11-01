@@ -420,6 +420,7 @@ button
 :::
 
 ts中关于给对象属性赋值函数
+
 ```ts
 type objGo = <T>(value: string, a: T) => T
 const obj: {
@@ -445,10 +446,10 @@ obj.go = function (value: string, list: string[]){
 默认添加时间转换功能
 后续添加下拉框的分页搜索 远程搜索
 
-
 form加上依赖注入，form加个setDisplay setDisabled功能
 
 ### ts中的this可以这样拿
+
   return function (this: any, ...args: Parameters<T>) {
     clearTimeout(time)
     time = setTimeout(() => {
@@ -489,4 +490,23 @@ export default {
   ```
 
 ### expose
+
 暴露公共属性
+注意其中的as FormExpose 直接...toRefs(formAttrs as FormExpose)达不到想要效果
+
+```js
+ expose({
+      ...(toRefs(formAttrs) as FormExpose),
+      getFormData,
+      formData,
+    } as DaFormExpose)
+```
+
+table插槽中的写法
+
+```html
+<template v-for="item in TableslotsList" :key="item" #[item]="slotData">
+      <slot v-if="slotData" :name="item" v-bind="slotData" />
+      <slot v-else :name="item" />
+    </template>
+```

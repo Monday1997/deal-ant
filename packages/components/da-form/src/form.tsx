@@ -1,24 +1,27 @@
 import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
-import { isArray, isDayJs, isEmpty } from '@deal-ant/utils'
 import dayjs from 'dayjs'
-import { daFormProps } from './props'
+import { isArray, isDayJs, isEmpty } from '@deal-ant/utils'
+import { daFormProps } from './types'
 import * as formFragment from './form-fragment'
 import { setDefaultFormData } from './utils/index'
-import type { Form } from 'ant-design-vue'
+
+import type { FormInstance } from 'ant-design-vue'
+import type { FormExpose } from 'ant-design-vue/lib/form/Form'
+import type { DaFormExpose } from './types'
 export default defineComponent({
   name: 'DaForm',
   props: daFormProps,
   emits: ['update:value'],
   setup(props, { expose }) {
     const formData = reactive(props.value || {})
-    const formRef = ref<InstanceType<typeof Form>>()
+    const formRef = ref<FormInstance>()
     setDefaultFormData({
       formGroup: props.formGroup,
       form: formData,
       formProps: props.formProps,
     })
     // 处理参数
-    function getFormData() {
+    function getFormData(): Record<string, any> {
       const obj = {}
       props.formGroup.forEach((item) => {
         const { key } = item
@@ -43,13 +46,8 @@ export default defineComponent({
       })
       return obj
     }
-    const formAttrs = reactive({
-      clearValidate: undefined,
-      resetFields: undefined,
-      scrollToField: undefined,
-      validate: undefined,
-      validateFields: undefined,
-    })
+    // | object
+    const formAttrs = reactive<FormExpose | object>({})
     watch(
       () => formRef.value,
       (val) => {
@@ -59,10 +57,10 @@ export default defineComponent({
       }
     )
     expose({
-      ...toRefs(formAttrs),
+      ...(toRefs(formAttrs) as FormExpose),
       getFormData,
       formData,
-    })
+    } as DaFormExpose)
     return { formData, getFormData, formRef }
   },
 
