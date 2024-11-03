@@ -16,13 +16,49 @@ outline: deep
 
 ### 基本使用
 
-基本配置如下，其中``formProps``用于设置form-item属性，``el-props``用于设置表单元素的属性，如el-input,el-select,el-radio等
+``DaForm``的属性依旧如同``a-form``,但加多了``form-group``属性配置form表单
+
+列表配置中``formProps``用于设置form-item属性，``el-props``用于设置表单元素的属性，如el-input,el-select,el-radio等
 key,label,renderKey为基本配置
-
-colDouble:两个占位
-
-formatter:日期转化格式
 
 :::demo
  daForm/base1
 :::
+
+### 栅格布局
+
+daFom保留antDesign原始布局 及添加layout属性（``horizontal`` | ``vertical`` | ``inline``）即可设置对应布局。
+
+在此基础上添加grip布局,只需为form加入grid属性即可，该属性常用于表格之类的搜索栏使用，使得搜索框可对应页面响应式变化
+
+grid默认相关配置如下：
+
+```js
+ const colspan = {
+      xs: 24,
+      sm: 24,
+      md: 8,
+      lg: 8,
+      xl: 6,
+      xxl: 4,
+      xxxl: 4,
+  }
+```
+
+开启grid布局之后,可在每个item中配置colspan属性自定义效果，若配置了colspanDouble属性则会占据两个默认配置位置
+:::demo
+ daForm/grid
+:::
+:::tip
+colspan相关详细配置可参考[ant文档](https://3x.antdv.com/components/grid-cn)
+:::
+
+formatter: numToBool,boolToNum,dateToString,dateToTimes,
+
+### 依赖注入——表单项动态关联
+
+#### setElProps
+
+#### setDisplay
+
+#### setFormProps
