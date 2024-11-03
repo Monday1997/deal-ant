@@ -1,0 +1,4 @@
+@use 'mixins/mixin.scss' as *;
+.#{$namespace}-align-center{
+  text-align: center;
+}

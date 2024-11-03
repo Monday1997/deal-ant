@@ -8,7 +8,8 @@ type TObject = Record<string, any>
 export interface FormGroupItem<T = any> {
   key: string
   renderKey: renderKey
-  label: string
+  formatter?: 'dateString'
+  label?: string
   formProps?: FormItemProps
   options?: TObject[]
   component?: string | Component

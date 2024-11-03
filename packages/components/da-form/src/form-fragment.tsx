@@ -82,10 +82,10 @@ export const renderRadio = <T,>(config: FormGroupItem, modelData: T) => {
     <a-form-item {...config.formProps}>
       <a-radio-group {...config.elProps} vModel={[modelData[config.key], 'value']}>
         {unref(config.options)?.map((item) =>
-          config.elProps && config.elProps.optionType === 'normal' ? (
-            <a-radio {...item}>{item.label}</a-radio>
-          ) : (
+          config.elProps && config.elProps.optionType === 'button' ? (
             <a-radio-button {...item}>{item.label}</a-radio-button>
+          ) : (
+            <a-radio {...item}>{item.label}</a-radio>
           )
         )}
       </a-radio-group>

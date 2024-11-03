@@ -24,7 +24,7 @@ function setRequiredMessage(item: FormGroupItem, formProps: FormItemProps) {
   if (item.formProps?.required && !item.formProps.rules && !formProps.rules?.[item.key]) {
     item.formProps.rules = {
       required: true,
-      message: `${item.formProps.label}不能为空`,
+      message: `${item.label || item.formProps.label || '该项'}不能为空`,
       trigger: ['blur', 'change'],
     }
   }
@@ -50,7 +50,7 @@ function setElProps(item: FormGroupItem) {
 }
 function setDefaultStyle(item) {
   item.elProps = item.elProps || {}
-  if (isUndefined(item.elProps.style)) {
+  if (isUndefined(item.elProps.style) && item.renderKey !== 'renderSwitch') {
     item.elProps.style = 'width:100%'
   }
 }

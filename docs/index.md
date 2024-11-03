@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "easy-com"
-  text: "一个符合业务需求的ant二次开发版"
+  text: "一个符合业务需求的ant组件库"
   tagline: My great project tagline
   actions:
     - theme: brand

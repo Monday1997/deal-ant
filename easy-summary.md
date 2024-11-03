@@ -22,6 +22,9 @@
 pnpm add @deal-ant/utils @workspace:* -w
 pnpm link --dir=dist/deal-ant
 
+根目录下package.json workspaces的作用：
+pnpm i 一步到位
+
 #### .vscode中extensions.json
 
 作为拓展推荐
@@ -331,8 +334,9 @@ raw-source:文件文字内容
 查看渲染结果
 
 #### 插件-plugin
-
+** 注意 **  .vitepress/config.mts 也可以直接使用为.vitepress/config/index.mts
 在.vitepress/config.mts中配置使用
+
 
 ```js
 {

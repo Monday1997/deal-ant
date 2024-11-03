@@ -6,6 +6,11 @@
   "license": "ISC",
   "author": "xuj",
   "main": "index.js",
+  "workspaces": [
+    "packages/*",
+    "play/*",
+    "buildings/**"
+  ],
   "scripts": {
     "dev": "pnpm -C play dev",
     "build": "gulp -f buildings/scripts/gulpfile.ts",

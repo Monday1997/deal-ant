@@ -40,7 +40,6 @@ const exampleIns = shallowRef()
 const decoded = computed(() => decodeURIComponent(props.source!))
 const decoedDescription = computed(() => decodeURIComponent(props.description))
 function loadCom() {
-  console.log('props', props)
   const loader = proxy.$exampleIns['../../example/' + props.path + '.vue'] //赋值时加入了这个../../
   if (loader) {
     loader().then((module) => {
@@ -54,7 +53,7 @@ function toogleSource() {
   sourceShow.value = !sourceShow.value
 }
 const { copy, isSupported } = useClipboard({
-  source: decodeURIComponent(props.rawSource),
+  source: decodeURIComponent(props.rawSource!),
   read: false,
 })
 async function copyCode() {
@@ -77,6 +76,8 @@ onBeforeMount(() => {
 <style lang="scss" scoped>
 .border-box {
   border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 16px;
 }
 .com-box {
   padding: 16px 16px 0;

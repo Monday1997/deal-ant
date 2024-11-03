@@ -1,0 +1,28 @@
+---
+outline: deep
+---
+
+# DaForm组件
+
+- 简介：
+基于ant-design-vue开发的form组件
+表单包含 ``输入框``, ``单选框``, ``下拉选择``, ``多选框`` 等用户输入的组件。 使用表单，您可以收集、验证和提交数据。
+- 开发缘由：
+原始``a-form``开发时需要在template中编写元素，并配置相应属性，开发流程较为繁琐且效率相对较低，而后台用到该组件较为频繁，为提高开发效率，考虑采用配置的方式来实现form开发。并默认了设置必填值时的message,placeholder,clearable，用户可通过elProps进行修改
+
+:::tip
+开发过程切勿使用直接修改配置的方式修改元素属性，而应该采用依赖注入并配合setConfig,setProps等方式修改元素属性（开发中）
+:::
+
+### 基本使用
+
+基本配置如下，其中``formProps``用于设置form-item属性，``el-props``用于设置表单元素的属性，如el-input,el-select,el-radio等
+key,label,renderKey为基本配置
+
+colDouble:两个占位
+
+formatter:日期转化格式
+
+:::demo
+ daForm/base1
+:::

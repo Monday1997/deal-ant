@@ -5,9 +5,11 @@ import DefaultTheme from 'vitepress/theme'
 import Demo from './components/demo.vue'
 import Antd from 'ant-design-vue'
 
-import './style.css'
-import './index.css'
-import 'ant-design-vue/dist/reset.css'
+import './style/scroll-bar.scss'
+import './style/common.css'
+import './style/index.css'
+import 'ant-design-vue/dist/antd.css';
+import '@deal-ant/theme-chalk/src/index.scss'
 export default {
   extends: DefaultTheme,
   Layout: () => {
@@ -17,7 +19,7 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     app.use(Antd)
-    app.config.globalProperties.$exampleIns = import.meta.glob('../../example/*.vue')
+    app.config.globalProperties.$exampleIns = import.meta.glob('../../example/**/*.vue')
     app.component('Demo', Demo)
     // ...
   },

@@ -27,17 +27,22 @@ export default defineComponent({
         const { key } = item
         const value = formData[key]
         if (
+          item.formatter === 'dateString' &&
           item.renderKey === 'renderRangePicker' &&
           isArray(value) &&
           isDayJs(value[0]) &&
-          (item.elProps?.picker === 'date' || !item.elProps?.picker)
+          (item.elProps?.picker === 'dateString' || !item.elProps?.picker)
         ) {
           obj[key] = value.map((item) => {
             return isDayJs(item) ? dayjs(item).format('YYYY-MM-DD') : item
           })
           return
         }
-        if (item.renderKey === 'renderDatePicker' && isDayJs(value)) {
+        if (
+          item.formatter === 'dateString' &&
+          item.renderKey === 'renderDatePicker' &&
+          isDayJs(value)
+        ) {
           return (obj[key] = dayjs(value).format('YYYY-MM-DD'))
         }
         if (!isEmpty(value)) {
@@ -47,7 +52,13 @@ export default defineComponent({
       return obj
     }
     // | object
-    const formAttrs = reactive<FormExpose | object>({})
+    const formAttrs = reactive<FormExpose | object>({
+      resetFields: undefined,
+      validateFields: undefined,
+      getFieldsValue: undefined,
+      validate: undefined,
+      scrollToField: undefined,
+    })
     watch(
       () => formRef.value,
       (val) => {
@@ -74,7 +85,11 @@ export default defineComponent({
             <>{formFragment[item.renderKey](item, this.formData)()}</>
           )
         )}
-        {this.$slots.buttons && <a-form-item>{this.$slots.buttons()}</a-form-item>}
+        {this.$slots.buttons && (
+          <a-form-item class="deal-ant-align-center">
+            <a-space>{this.$slots.buttons()}</a-space>
+          </a-form-item>
+        )}
       </>
     )
     const colspan = {
