@@ -67,6 +67,7 @@ const formGroup: FormGroupItem[] = [
 const daform = ref<DaFormInstance>()
 async function submit() {
   await daform.value!.validateFields()
+  console.log(daform.value!.getFormData())
 }
 </script>
 

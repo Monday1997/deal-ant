@@ -1,3 +1,4 @@
+import { isPromise } from './type'
 /**
  * 最后一次执行
  */
@@ -26,3 +27,27 @@ export function debounce<T extends (...arg: any[]) => void>(fn: T, delay = 200) 
     }, delay)
   }
 }
+/**
+ * 职责链判断
+ */
+/* function chainModeJudge(this: any) {
+  this.chain = []
+}
+chainModeJudge.prototype.add = function (fn) {
+  this.chain.push(fn)
+}
+chainModeJudge.prototype.start = async function () {
+  for (let key = 0; key < this.chain.length; key++) {
+    const fn = this.chain[key]
+    const result = fn()
+    let error = false
+    if (isPromise(fn)) {
+      error = await result
+    } else {
+      error = result
+    }
+    if (error) {
+      return error
+    }
+  }
+} */

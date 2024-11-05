@@ -25,7 +25,7 @@ key,label,renderKey为基本配置
  daForm/base1
 :::
 
-### 栅格布局
+### 栅格布局 grid
 
 daFom保留antDesign原始布局 及添加layout属性（``horizontal`` | ``vertical`` | ``inline``）即可设置对应布局。
 
@@ -53,7 +53,27 @@ grid默认相关配置如下：
 colspan相关详细配置可参考[ant文档](https://3x.antdv.com/components/grid-cn)
 :::
 
-formatter: numToBool,boolToNum,dateToString,dateToTimes,
+### 值转化
+
+通常用于创建时展示字段与提交字段不同时
+
+例如时间范围我们赋值或者选值时通常拿到的是dayjs类型，而后端有时需要``string``,有时需要时间戳
+
+再比如下拉选项中是数字而要提交的是字符串等
+
+设置配置数组中的formatter选项，通过ref对象调用getFormData()即可获取目标值
+
+formatter当前值 'dateToString'| 'dateToTime'| 'dateToString'| 'dateToTime'| 'numToString'| 'stringToNum'
+
+:::demo
+daForm/valeChange
+:::
+
+### 显示转化
+
+### 内置规则
+
+新增的rules number,phone,zhCn
 
 ### 依赖注入——表单项动态关联
 

@@ -8,7 +8,13 @@ type TObject = Record<string, any>
 export interface FormGroupItem<T = any> {
   key: string
   renderKey: renderKey
-  formatter?: 'dateString'
+  formatter?:
+    | 'dateToString'
+    | 'dateToTime'
+    | 'dateToString'
+    | 'dateToTime'
+    | 'numToString'
+    | 'stringToNum'
   label?: string
   formProps?: FormItemProps
   options?: TObject[]

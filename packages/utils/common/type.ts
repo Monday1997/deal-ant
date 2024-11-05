@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-export const isNumber = (val: any): val is number => typeof val === 'number'
+export const isNumber = (val: any): val is number => typeof val === 'number' && !isNaN(val)
 
 export function isArray(val: any): val is any[] {
   return Array.isArray(val)
