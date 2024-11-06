@@ -8,8 +8,9 @@ outline: deep
 基于ant-design-vue开发的form组件
 表单包含 ``输入框``, ``单选框``, ``下拉选择``, ``多选框`` 等用户输入的组件。 使用表单，您可以收集、验证和提交数据。
 - 开发缘由：
-原始``a-form``开发时需要在template中编写元素，并配置相应属性，开发流程较为繁琐且效率相对较低，而后台用到该组件较为频繁，为提高开发效率，考虑采用配置的方式来实现form开发。并默认了设置必填值时的message,placeholder,clearable，用户可通过elProps进行修改
+原始``a-form``开发时需要在template中编写元素，并配置相应属性，开发流程较为繁琐且效率相对较低，而后台用到该组件较为频繁，为提高开发效率，考虑采用配置的方式来实现form开发。并默认了设置必填值时的message,placeholder,用户可通过elProps进行修改
 
+clearable,renderKey默认值
 :::tip
 开发过程切勿使用直接修改配置的方式修改元素属性，而应该采用依赖注入并配合setConfig,setProps等方式修改元素属性（开发中）
 :::
@@ -21,6 +22,7 @@ outline: deep
 列表配置中``formProps``用于设置form-item属性，``el-props``用于设置表单元素的属性，如el-input,el-select,el-radio等
 key,label,renderKey为基本配置
 
+renderKey未设置默认为renderInput
 :::demo
  daForm/base1
 :::
@@ -69,11 +71,9 @@ formatter当前值 'dateToString'| 'dateToTime'| 'dateToString'| 'dateToTime'| '
 daForm/valeChange
 :::
 
-### 显示转化
+### disabled
 
-### 内置规则
-
-新增的rules number,phone,zhCn
+boolean|string[]
 
 ### 依赖注入——表单项动态关联
 
@@ -82,3 +82,10 @@ daForm/valeChange
 #### setDisplay
 
 #### setFormProps
+
+### 显示转化
+
+比如编辑时后端传一个时间戳，前端需要显示dayjs,则使用``showFormatter:timeToDayjs``
+:::warn
+考虑到大多时候是拿到返回数据后通过一个function处理再显示到页面，这个功能可能用的不是很多，需要根据实际情况再考虑开发
+:::

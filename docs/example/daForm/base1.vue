@@ -65,6 +65,10 @@ const formGroup: FormGroupItem[] = [
     label: '年龄',
     renderKey: 'renderInputNumber',
   },
+  {
+    key: 'job',
+    label: '职业',
+  },
 ]
 const daform = ref<DaFormInstance>()
 async function submit() {

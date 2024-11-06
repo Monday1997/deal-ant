@@ -7,11 +7,14 @@ export function setDefaultFormData(data: {
   formProps: FormItemProps
 }) {
   data.formGroup.map((item) => {
+    setDefaultRenderKeys(item)
     setElProps(item)
     setDefaultOrigin(item, data.formProps)
   })
 }
-
+function setDefaultRenderKeys(item: FormGroupItem) {
+  item.renderKey = item.renderKey || 'renderInput'
+}
 function setDefaultOrigin(item: FormGroupItem, formProps: FormItemProps) {
   setRequiredMessage(item, formProps)
   item.formProps = item.formProps || {}

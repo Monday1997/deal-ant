@@ -7,7 +7,7 @@ export type renderKey = keyof typeof formFragment
 type TObject = Record<string, any>
 export interface FormGroupItem<T = any> {
   key: string
-  renderKey: renderKey
+  renderKey?: renderKey
   formatter?:
     | 'dateToString'
     | 'dateToTime'
