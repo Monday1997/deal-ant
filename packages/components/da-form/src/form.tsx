@@ -1,5 +1,6 @@
 import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
 
+import { Col, Form, FormItem, Row, Space } from 'ant-design-vue'
 import { daFormProps } from './types'
 import * as formFragment from './form-fragment'
 import useFormData from './composable/useFormData'
@@ -48,9 +49,9 @@ export default defineComponent({
           )
         )}
         {this.$slots.buttons && (
-          <a-form-item class="deal-ant-align-center">
-            <a-space>{this.$slots.buttons()}</a-space>
-          </a-form-item>
+          <FormItem class="deal-ant-align-center">
+            <Space>{this.$slots.buttons()}</Space>
+          </FormItem>
         )}
       </>
     )
@@ -70,37 +71,37 @@ export default defineComponent({
     const gridLayoutRender = () => {
       return (
         <>
-          <a-row gutter={{ md: 8, lg: 8, xl: 16, xxxl: 24 }} {...this.$props.rowProps}>
+          <Row gutter={{ md: 8, lg: 8, xl: 16, xxxl: 24 }} {...this.$props.rowProps}>
             {this.$props.formGroup.map((item) =>
               this.$slots[item.key] ? (
                 this.$slots[item.key]!()
               ) : (
                 <>
-                  <a-col {...(item.colDouble ? colspanDouble : colspan)} {...item.colProps}>
+                  <Col {...(item.colDouble ? colspanDouble : colspan)} {...item.colProps}>
                     {formFragment[item.renderKey](item, this.formData)()}
-                  </a-col>
+                  </Col>
                 </>
               )
             )}
             {this.$slots.buttons && (
-              <a-col>
-                <a-form-item>
-                  <a-space>{this.$slots.buttons()}</a-space>
-                </a-form-item>
-              </a-col>
+              <Col>
+                <FormItem>
+                  <Space>{this.$slots.buttons()}</Space>
+                </FormItem>
+              </Col>
             )}
-          </a-row>
+          </Row>
         </>
       )
     }
     return (
-      <a-form
+      <Form
         {...this.$props.formProps}
         model={this.formData}
         ref={(ref: any) => (this.formRef = ref)}
       >
         {this.$props.grid ? gridLayoutRender() : defaultRender()}
-      </a-form>
+      </Form>
     )
   },
 })

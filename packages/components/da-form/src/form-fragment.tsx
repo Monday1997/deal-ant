@@ -12,92 +12,106 @@
 
 import { h, unref } from 'vue'
 import { DaSelect } from '@deal-ant/components'
+import {
+  CheckboxGroup,
+  DatePicker,
+  FormItem,
+  Input,
+  InputNumber,
+  MonthPicker,
+  Radio,
+  RadioButton,
+  RadioGroup,
+  RangePicker,
+  Switch,
+  Textarea,
+} from 'ant-design-vue'
 import type { SelectProps } from 'ant-design-vue/lib/vc-select'
 import type { FormGroupItem } from './types'
 export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-input {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <Input {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 
 export const renderInputNumber = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-input-number {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <InputNumber {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 export const renderTextarea = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-textarea {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <Textarea {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 
 export const renderSelect = <T,>(config: FormGroupItem<SelectProps>, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
+    <FormItem {...config.formProps}>
       <DaSelect config={config} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    </FormItem>
   )
 }
 
 export const renderMonthPicker = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-month-picker {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <MonthPicker {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 
 export const renderDatePicker = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-date-picker {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <DatePicker {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 
 export const renderRangePicker = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-range-picker {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <RangePicker {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 
 export const renderCheckbox = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-checkbox-group {...config.elProps} vModel={[modelData[config.key], 'value']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <CheckboxGroup {...config.elProps} vModel={[modelData[config.key], 'value']} />
+    </FormItem>
   )
 }
 
 export const renderRadio = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-radio-group {...config.elProps} vModel={[modelData[config.key], 'value']}>
+    <FormItem {...config.formProps}>
+      <RadioGroup {...config.elProps} vModel={[modelData[config.key], 'value']}>
         {unref(config.options)?.map((item) =>
           config.elProps && config.elProps.optionType === 'button' ? (
-            <a-radio-button {...item}>{item.label}</a-radio-button>
+            <RadioButton {...item}>{item.label}</RadioButton>
           ) : (
-            <a-radio {...item}>{item.label}</a-radio>
+            <Radio {...item}>{item.label}</Radio>
           )
         )}
-      </a-radio-group>
-    </a-form-item>
+      </RadioGroup>
+    </FormItem>
   )
 }
 
 export const renderSwitch = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
-    <a-form-item {...config.formProps}>
-      <a-switch {...config.elProps} vModel={[modelData[config.key], 'checked']} />
-    </a-form-item>
+    <FormItem {...config.formProps}>
+      <Switch {...config.elProps} vModel={[modelData[config.key], 'checked']} />
+    </FormItem>
   )
 }
 
