@@ -21,7 +21,6 @@ clearable,renderKey默认值
 
 列表配置中``formProps``用于设置form-item属性，``el-props``用于设置表单元素的属性，如el-input,el-select,el-radio等
 key,label,renderKey为基本配置
-
 renderKey未设置默认为renderInput
 :::demo
  daForm/base1
@@ -77,11 +76,21 @@ boolean|string[]
 
 ### 依赖注入——表单项动态关联
 
-#### setElProps
 
-#### setDisplay
+我们可以如下用depend注入对应的表单项依赖，当表单项依赖中的值变化时，若formGroup配有depend字段，则会自动执行，
+第一项会返回`setFormProp`,`setFormProps`,`setElProp`,`setElProps`,`toogle`
 
-#### setFormProps
+``toogle``传入boolean控制显隐
+
+``setElProp``,``setFormProp``使用``setElProp(key,value)``,``setFormProp(key,value)``
+
+``setElProps``,``setFormProps``则有个回调函数，传入当前配置与依赖项数组，用户的返回值即为设置的属性
+#### setFormProp/setFormProps
+:::demo
+daForm/depend
+:::
+#### setElProp/setElrops
+
 
 ### 显示转化
 

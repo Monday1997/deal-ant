@@ -3,7 +3,6 @@ import type { FormGroupItem } from '../types'
 import type { FormItemProps } from 'ant-design-vue'
 export function setDefaultFormData(data: {
   formGroup: FormGroupItem[]
-  form: Record<string, any>
   formProps: FormItemProps
 }) {
   data.formGroup.map((item) => {
@@ -23,7 +22,7 @@ function setDefaultOrigin(item: FormGroupItem, formProps: FormItemProps) {
   }
   item.formProps.name = item.key
 }
-function setRequiredMessage(item: FormGroupItem, formProps: FormItemProps) {
+export function setRequiredMessage(item: FormGroupItem, formProps: FormItemProps) {
   if (item.formProps?.required && !item.formProps.rules && !formProps.rules?.[item.key]) {
     item.formProps.rules = {
       required: true,

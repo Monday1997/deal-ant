@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import type { FormGroupItem } from '@deal-ant/componenst'
-import { reactive, ref } from 'vue'
+import { reactive, ref,watch,computed} from 'vue'
 import dayjs from 'dayjs'
 // const formModel = reactive<{
 //   item1?: string[]
@@ -67,6 +67,18 @@ function btnclick() {
   // daform.value.getFormRef().validateFields()
   console.log(daform.value.getFormData())
 }
+
+let ddd = ref('')
+setTimeout(()=>{
+  ddd.value = '9999'
+},2000)
+watch(()=>ddd,(val)=>{
+  console.log(val)
+})
+// const dd = computed(()=>{
+//   console.log(ddd)
+//   return 123
+// })
 </script>
 
 <style lang="scss" scoped></style>

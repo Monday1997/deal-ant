@@ -12,8 +12,7 @@ export default defineComponent({
   props: daFormProps,
   emits: ['update:value'],
   setup(props, { expose }) {
-    const { formData, getFormData } = useFormData(props)
-
+    const { formData, getFormData,formGroup } = useFormData(props)
     const formRef = ref<FormInstance>()
     const formAttrs = reactive<FormExpose | object>({
       resetFields: undefined,
@@ -35,13 +34,15 @@ export default defineComponent({
       getFormData,
       formData,
     } as DaFormExpose)
-    return { formData, getFormData, formRef }
+
+
+    return { formData, getFormData, formRef ,formGroup}
   },
 
   render() {
     const defaultRender = () => (
       <>
-        {this.$props.formGroup.map((item) =>
+        {this.formGroup.map((item) =>
           this.$slots[item.key] ? (
             this.$slots[item.key]!()
           ) : (
@@ -72,7 +73,7 @@ export default defineComponent({
       return (
         <>
           <Row gutter={{ md: 8, lg: 8, xl: 16, xxxl: 24 }} {...this.$props.rowProps}>
-            {this.$props.formGroup.map((item) =>
+            {this.formGroup.map((item) =>
               this.$slots[item.key] ? (
                 this.$slots[item.key]!()
               ) : (

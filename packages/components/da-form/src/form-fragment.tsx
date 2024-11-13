@@ -31,6 +31,7 @@ import type { FormGroupItem } from './types'
 export const renderInput = <T,>(config: FormGroupItem, modelData: T) => {
   return () => (
     <FormItem {...config.formProps}>
+      <div>{{...config.formProps}}</div>
       <Input {...config.elProps} vModel={[modelData[config.key], 'value']} />
     </FormItem>
   )
